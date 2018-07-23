@@ -1,0 +1,61 @@
+{% extends "myadmin/base.html" %}
+{% block mainbody %}
+<form class="form-inline" action="{% url 'myadmin_users_index' 1 %}" method="get">
+  <label>关键字：</label>
+  <input type="text" name="keyword" value="{{request.GET.keyword}}" class="input-small" placeholder="账号/姓名">
+  <label>性别：</label>
+  <select name="sex" class="span1">
+	  <option value="">全部</option>
+	  <option value="1" {% if request.GET.sex == '1' %}selected{% endif %}>男</option>
+	  <option value="0" {% if request.GET.sex == '0' %}selected{% endif %}>女</option>
+  </select>
+  <button type="submit" class="btn">搜索</button>
+  <a href="{% url 'myadmin_users_index' 1 %}" class="btn">全部</a>
+</form>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>账号</th>
+            <th>真实姓名</th>
+            <th>性别</th>
+            <th>邮箱</th>
+            <th>注册时间</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for vo in userslist %}
+        <tr>
+            <td>{{ vo.user_name }}</td>
+            <td>{{ vo.nick_name }}</td>
+            <td>{% if vo.sex == 1 %}男{% else %}女{% endif %}</td>
+            <td>{{ vo.email }}</td>
+            <td>{{ vo.add_time|date:'Y-m-d H:i:s' }}</td>
+            <td>{{ vo.state }}</td>
+            <td>
+				<a href="{% url 'myadmin_users_reset' vo.id %}" class="btn btn-mini btn-success">重置密码</a>
+                <a href="{% url 'myadmin_users_del' vo.id %}" class="btn btn-mini btn-primary">删除</a>
+                <a href="{% url 'myadmin_users_edit' vo.id %}" class="btn btn-mini btn-danger">编辑</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="pagination">
+	<ul>
+		<li>
+			<a href="{% url 'myadmin_users_index' pIndex|add:-1 %}?{{ mywhere|join:'&' }}">&laquo;</a>
+		</li>
+		{% for p in plist %}
+		<li {% if pIndex == p %}class="active"{% endif %}>
+			<a href="{% url 'myadmin_users_index' p %}?{{ mywhere|join:'&' }}">{{p}}</a>
+		</li>
+		{% endfor %}
+		<li>
+			<a href="{% url 'myadmin_users_index' pIndex|add:1 %}?{{ mywhere|join:'&' }}">&raquo;</a>
+		</li>
+
+	</ul>
+</div>
+{% endblock mainbody %}

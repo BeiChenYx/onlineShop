@@ -1,0 +1,34 @@
+{% extends "myadmin/base.html" %}
+{% block mainbody %}
+<h1>
+	重置密码
+</h1>
+<form id="edit-profile" class="form-horizontal" method="post" action="{% url 'myadmin_users_doreset' user.id %}">
+	{% csrf_token %}
+	<fieldset>
+		<legend>你的信息</legend>
+		<div class="control-group">
+			<label class="control-label" for="input01" >姓名</label>
+			<div class="controls">
+				<input type="text" class="input-xlarge" id="input01"
+				 name="user_name" value="{{ user.user_name }}" disabled/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="input01">密码</label>
+			<div class="controls">
+				<input type="password" class="input-xlarge" placeholder="数字，字母，下划线" name="password"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="input01">确认密码</label>
+			<div class="controls">
+				<input type="password" class="input-xlarge" placeholder="再次输入密码"/>
+			</div>
+		</div>						
+		<div class="form-actions">
+			<button type="submit" class="btn btn-primary">Save</button> <button class="btn">Cancel</button>
+		</div>
+	</fieldset>
+</form>
+{% endblock mainbody %}

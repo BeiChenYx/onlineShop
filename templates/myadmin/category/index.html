@@ -1,0 +1,29 @@
+{% extends "myadmin/base.html" %}
+{% block mainbody %}
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>id号</th>
+            <th>列表名称</th>
+            <th>父类别pid</th>
+            <th>路径path</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for vo in typeslist %}
+        <tr>
+            <td>{{ vo.id }}</td>
+            <td>{{ vo.name }}</td>
+            <td>{{ vo.pid }}</td>
+            <td>{{ vo.path }}</td>
+            <td>
+                <a href="{% url 'myadmin_category_add' vo.id %}" class="view-link">添加子类别</a>
+                <a href="{% url 'myadmin_category_edit' vo.id %}" class="view-link">编辑</a>
+                <a href="{% url 'myadmin_category_del' vo.id %}" class="view-link">删除</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock mainbody %}
