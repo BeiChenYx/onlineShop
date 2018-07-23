@@ -18,4 +18,7 @@ from .views import index
 
 urlpatterns = [
     url(r'^$', index.index, name='index'),
+    url(r'^list$', index.good_list, name='good_list'),
+    url(r'^detail/$', index.good_detail, name='good_detail'),
+
 ]
