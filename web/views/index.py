@@ -13,10 +13,10 @@ def good_list(request):
     """
     商品列表
     """
-    pass
+    return render(request, 'web/list.html')
 
 def good_detail(request):
     """
     商品详情页
     """
-    pass
+    return render(request, 'web/detail.html')
