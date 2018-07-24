@@ -114,9 +114,8 @@
 
       <!-- 商品列表 -->
       <div class="goods-list">
-        {% for row in rows %}
           <div class="row">
-            {% for col in coles %}
+            {% for goods in goods_list %}
               <div class="col-md-3 col-sm-6 col-xs-6">
                 <div class="gl-item">
                   <div class="compare-btn-list" >
@@ -126,8 +125,8 @@
                   <div class="gl-item-wrap">
                     <div class="tab-content">
                       <div role="tabpanel" class="tab-pane active mod-pic" id="list-p1">
-                        <a href="./meilanx.html">
-                          <img class="lazy j-modProduct" src="{% static 'web/img/goods.row.col.picname' %}" width="220" height="220">
+                        <a href="{% url 'good_detail' goods.id %}">
+                          <img class="lazy j-modProduct" src="/static/goods/{{ goods.picname }}" width="220" height="220">
                         </a>
                       </div>
                     </div>
@@ -170,94 +169,8 @@
               </div>
             {% endfor %}
           </div>
-        {% endfor %}
       </div>
       <!-- 商品列表 -->
-      <!-- 推荐商品 -->
-      <div class="recommend  hidden-xs hidden-sm">
-       <div class="recommend-hd">
-            <h2 class="mod-title">为您推荐</h2>
-       </div>
-       <div class="recommend-slider">
-          <div class="flex-viewport" style="overflow: hidden; position: relative;">
-            <ul class="recommend-slider-wrap" style="width: 1000%; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);">
-              <li class="rs-item" style="width: 245.6px; margin-right: 5px; float: left; display: block;">
-                <a class="rs-item-wrap" title="魅蓝 Note5" href="#" target="_blank">
-                  <div class="mod-pic">
-                    <img src="{% static 'web/img/list81.jpg' %}" style="display: inline;" width="180" height="180">
-                  </div>
-                  <div class="mod-desc">
-                    <h4 class="vm-title">魅蓝 Note5 </h4>
-                    <h6 class="vm-subtitle" title="6期免息  16G直降100元">6期免息  16G直降100元</h6>
-                    <p class="vm-price">
-                        <span>¥</span><span class="vm-price-text">899</span>
-                    </p>
-                  </div>
-                  <span class="mod-sign" style="background-color: #f0415f;">特惠</span>
-                </a>
-              </li>
-              <li class="rs-item" style="width: 245.6px; margin-right: 5px; float: left; display: block;">
-                <a class="rs-item-wrap" title="魅蓝 5s" href="#" target="_blank">
-                  <div class="mod-pic">
-                          <img src="{% static 'web/img/list82.jpg' %}" style="display: inline;" width="180" height="180">
-                  </div>
-                  <div class="mod-desc">
-                      <h4 class="vm-title">魅蓝 5s </h4>
-                      <h6 class="vm-subtitle" title="32G版限量赠壳膜">32G版限量赠壳膜</h6>
-                      <p class="vm-price">
-                          <span>¥</span><span class="vm-price-text">999</span>
-                      </p>
-                  </div>
-                </a>
-              </li>
-              <li class="rs-item" style="width: 245.6px; margin-right: 5px; float: left; display: block;">
-                <a class="rs-item-wrap" title="魅族 MX6" href="#" target="_blank">
-                  <div class="mod-pic">
-                          <img src="{% static 'web/img/list83.jpg' %}" style="display: inline;" width="180" height="180">
-                      </div>
-                  <div class="mod-desc">
-                      <h4 class="vm-title">魅族 MX6 </h4>
-                      <h6 class="vm-subtitle" title="全金属 拍照旗舰">全金属 拍照旗舰</h6>
-                      <p class="vm-price">
-                          <span>¥</span><span class="vm-price-text">1599</span>
-                      </p>
-                  </div>
-                </a>
-              </li>
-              <li class="rs-item" style="width: 245.6px; margin-right: 5px; float: left; display: block;">
-                <a class="rs-item-wrap" title="魅蓝 Max" href="#" target="_blank">
-                  <div class="mod-pic">
-                    <img src="{% static 'web/img/list84.jpg' %}" style="display: inline;" width="180" height="180">
-                  </div>
-                  <div class="mod-desc">
-                    <h4 class="vm-title">魅蓝 Max </h4>
-                    <h6 class="vm-subtitle" title="大屏长续航 享3期免息">大屏长续航 享3期免息</h6>
-                    <p class="vm-price">
-                        <span>¥</span><span class="vm-price-text">1699</span>
-                    </p>
-                  </div>
-                </a>
-              </li>
-              <li class="rs-item" style="width: 245.6px; margin-right: 5px; float: left; display: block;">
-                <a  class="rs-item-wrap" title="魅蓝 E2" href="#" target="_blank">
-                  <div class="mod-pic">
-                    <img src="{% static 'web/img/list85.jpg' %}" style="display: inline;" width="180" height="180">
-                  </div>
-                  <div class="mod-desc">
-                      <h4 class="vm-title">魅蓝 E2 </h4>
-                      <h6 class="vm-subtitle" title="三色现货 购机享3期免息">三色现货 购机享3期免息</h6>
-                      <p class="vm-price">
-                          <span>¥</span><span class="vm-price-text">1299</span>
-                      </p>
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <!-- 推荐商品 E -->
-
     </div>
   </div>
   {% endblock mainbody %}

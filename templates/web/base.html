@@ -84,7 +84,8 @@
           </ul>
           <ul class="nav navbar-nav navbar-right layout-header-nav clearfix">
             {% for category in categorys %}
-              <li class="layout-header-nav-item"><a href="#" class="layout-header-nav-link">{{ category.name }}</a></li>
+              <li class="layout-header-nav-item"><a href="{% url 'good_list' %}?tid={{ category.id }}" 
+                class="layout-header-nav-link">{{ category.name }}</a></li>
             {% endfor %}
             <li class="layout-header-nav-item"><a href="#" class="layout-header-nav-link">Flyme</a></li>
             <li class="layout-header-nav-item"><a href="#" class="layout-header-nav-link">社区</a></li>                          
@@ -93,81 +94,6 @@
          <!-- /.navbar-collapse -->
       </div>
      <!-- /.container-fluid -->
-     <!-- 鼠标经过出现内容 -->
-     <!--
-     <div class="layout-header-nav-child">
-       <div class="container">
-         <ul class="layout-header-nav-child-list first" >
-           <li class="layout-header-nav-child-item">
-             <a class="layout-header-nav-child-link" target="_blank" href="#">
-               <div class="layout-header-nav-child-box">
-                 <img src="{% static 'web/img/nav1.jpg' %}" class="layout-header-nav-child-img" alt="PRO 7">
-               </div>
-               <p class="layout-header-nav-child-name">
-                 PRO 7
-               </p>
-               <p class="layout-header-nav-child-bottom">
-                 <span class="layout-header-nav-child-price">2880</span>起
-               </p>
-             </a>
-           </li>  
-           <li class="layout-header-nav-child-item">
-             <a class="layout-header-nav-child-link" target="_blank" href="#">
-               <div class="layout-header-nav-child-box">
-                 <img src="{% static 'web/img/nav2.png' %}" class="layout-header-nav-child-img" alt="PRO 7 Plus">
-               </div>
-               <p class="layout-header-nav-child-name">
-                 PRO 7 Plus
-               </p>
-               <p class="layout-header-nav-child-bottom">
-                 <span class="layout-header-nav-child-price">3580</span>起
-               </p>
-             </a>
-           </li>
-           <li class="layout-header-nav-child-item">
-             <a class="layout-header-nav-child-link" target="_blank" href="#">
-               <div class="layout-header-nav-child-box">
-                 <img src="{% static 'web/img/nav3.jpg' %}" class="layout-header-nav-child-img" alt="PRO 6 Plus">
-               </div>
-               <p class="layout-header-nav-child-name">
-                 PRO 6 Plus
-               </p>
-               <p class="layout-header-nav-child-bottom">
-                 <span class="layout-header-nav-child-price">2699</span>
-               </p>
-             </a>
-           </li>
-           <li class="layout-header-nav-child-item">
-             <a class="layout-header-nav-child-link" target="_blank" href="#">
-               <div class="layout-header-nav-child-box">
-                 <img src="{% static 'web/img/nav4.png' %}" class="layout-header-nav-child-img" alt="PRO 6s">
-               </div>
-               <p class="layout-header-nav-child-name">
-                 PRO 6s
-               </p>
-               <p class="layout-header-nav-child-bottom">
-                 <span class="layout-header-nav-child-price">2299</span>
-               </p>
-             </a>
-           </li>
-           <li class="layout-header-nav-child-item">
-             <a class="layout-header-nav-child-link" target="_blank" href="#">
-               <div class="layout-header-nav-child-box">
-                 <img src="{% static 'web/img/nav5.jpg' %}" class="layout-header-nav-child-img" alt="MX6">
-               </div>
-               <p class="layout-header-nav-child-name">
-                 MX6
-               </p>
-               <p class="layout-header-nav-child-bottom">
-                 <span class="layout-header-nav-child-price">1599</span>
-               </p>
-             </a>
-           </li>
-           
-         </ul>
-       </div>
-     </div>
-    -->
     </nav>
     <!-- 移动端结构 -->
     <div class="scroll-view">

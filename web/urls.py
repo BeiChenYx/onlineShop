@@ -19,6 +19,7 @@ from .views import index
 urlpatterns = [
     url(r'^$', index.index, name='index'),
     url(r'^list$', index.good_list, name='good_list'),
+    url(r'^list/(?P<pindex>[0-9]+)$', index.good_list, name='good_list'),
     url(r'^detail/(?P<gid>[0-9]+)$', index.good_detail, name='good_detail'),
 
     # 会员登录路由管理

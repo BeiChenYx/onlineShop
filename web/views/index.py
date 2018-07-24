@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 from common.models import Member, Category, Goods
 
-# Create your views here.
+# Create your views here.£
 def load_top_category(request):
     """
     加载一级类别
@@ -25,13 +25,13 @@ def good_list(request, pindex=1):
     商品展示就直接一行4个，一直排下去
     """
     context = load_top_category(request)
-    goods = Goods.objects.all()
-    rows = len(goods) // 4 + (1 if len(goods) % 4 else 0)
-
-    context['rows'] = tuple(range(0, rows))
-    context['coles'] = (0, 1, 2, 3)
-    # 构造二维列表
-    context['goods'] = [goods[row*4: row*4+4] for row in range(0, rows)]
+    goodslist = Goods.objects
+    cid = int(request.GET.get('tid', 0))
+    if cid > 0:
+        goods_data = goodslist.filter(typeid__in=Category.objects.only('id').filter(pid=cid))
+    else:
+        goods_data = goodslist.filter()
+    context['goods_list'] = goods_data
     return render(request, 'web/list.html', context)
 
 def good_detail(request, gid):
