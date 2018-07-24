@@ -34,7 +34,7 @@
     <nav class="navbar navbar-default header ">
       <div class="container clearfix">
           <div class="layout-header-logo navbar-left">
-              <a target="_blank" href="./index.html" class="layout-header-logo-link" alt="魅族科技">
+              <a href="{% url 'index' %}" class="layout-header-logo-link" alt="魅族科技">
                 <img src="{% static 'web/img/logo.png' %}">
               </a>
           </div>      
@@ -47,18 +47,21 @@
     <div class="container-fluid"> 
 		<div class="banner-box hidden-xs hidden-sm">
 			<div class="container">
-        <form id="mainForm" class="main-form" action="{% url 'dologin' %}" method="post">
+
+        <form id="mainForm" name="mainForm" class="main-form" action="{% url 'dologin' %}" method="post">
           {% csrf_token %}
 					<div class="tab-title">
 						<a class="linkAGray" id="toAccountLogin" href="javascript:void(0);">账号登录</a>
-					</div>
-					<div class="tip-box visiblility-hidden">
+          </div>
+          {% if info %}
+					<div class="tip-box">
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						  <i class="glyphicon glyphicon-exclamation-sign"></i>
-						  <span class="tip-font"></span>
+						  <span class="tip-font">{{ info }}</span>
 						  <span aria-hidden="true" class="cha">&times;</span>
 						</button>
-					</div>
+          </div>
+          {% endif %}
 					<div class="normalInput cycode-box fieldInput" id="cycode-box">
 						<div class="cycode-selectbox">
 							<input class="ipt-account inp-focus" name="username" id="account" maxlength="50" placeholder="登录账号" autocomplete="off">
@@ -72,8 +75,8 @@
             />
             <img src="{% url 'myadmin_verify' %}?id=1" onclick="this.src='{% url 'myadmin_verify' %}?sn='+Math.random()" />
           </div>
+          <button type="submit" class="normalInput">登录</button>
 
-					<a id="register" class="fullBtnBlue">登录</a>
 					<div class="transferField">
 						<a class="go2forgetpwd linkABlue rememberFieldForA" href="#">忘记密码?</a>
 						<a class="go2register linkABlue" href="./register.html" id="toRegister">注册</a>
@@ -81,34 +84,6 @@
 				</form>
 			</div>
 		</div>
-      <!-- 移动端结构 -->
-      <form id="mainForm" class="main-form app-main-form">
-        <div class="tab-title">
-          <a class="linkAGray" id="toAccountLogin" href="javascript:void(0);">账号登录</a>
-        </div>
-        <div class="tip-box visiblility-hidden">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <i class="glyphicon glyphicon-exclamation-sign"></i>
-            <span class="tip-font"></span>
-            <span aria-hidden="true" class="cha">&times;</span>
-          </button>
-        </div>
-        <div class="normalInput cycode-box show-cycode" id="cycode-box">
-          <div class="cycode-selectbox">
-            <input id="phone" name="phone" class="ipt-phone inp-focus" maxlength="11" placeholder="手机号码" autocomplete="off">
-          </div>
-        </div>
-        <div class="normalInput box-input">
-          <input class="pswInput inp-focus" name="kapkey" id="kapkey" maxlength="6" placeholder="密码" autocomplete="off" tabindex="3" type="text">
-        </div>
-
-        <a id="register" class="fullBtnBlue">登录</a>
-        <div class="transferField">
-          <a class="go2forgetpwd linkABlue rememberFieldForA" href="#">忘记密码?</a>
-          <a class="go2register linkABlue" href="./register.html" id="toRegister">注册</a>
-        </div>
-      </form>
-      <!-- 移动端结构 E-->
 
     </div>
   </div>

@@ -39,7 +39,7 @@
       <div class="container clearfix">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <div class="layout-header-logo navbar-left">
-              <a target="_blank" href="./index.html" class="layout-header-logo-link" alt="魅族科技">
+              <a target="_blank" href="{% url 'index' %}" class="layout-header-logo-link" alt="魅族科技">
                 <img src="{% static 'web/img/logo.png' %}">
               </a>
           </div>
@@ -48,22 +48,32 @@
                 <a class="layout-header-service-link g-user" href="#">
                   <i class="glyphicon glyphicon-user"></i>
                 </a>
-                <div class="layout-user-downmenu">
-                  <ul class="layout-user-downmenu-list">
-                    <li class="layout-user-downmenu-item">
-                      <a href="login.html" class="layout-user-downmenu-link">立即登录</a>
-                    </li>
-                    <li class="layout-user-downmenu-item">
-                      <a href="register.html" target="_blank" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_register">立即注册</a>
-                    </li>
-                    <li class="layout-user-downmenu-item">
-                      <a href="#" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_myorder">我的订单</a>
-                    </li>
-                    <li class="layout-user-downmenu-item">
-                      <a href="#" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_mformy">M码通道</a>
-                    </li>
-                  </ul>
-                </div>
+                {% if request.session.vipuser %}
+                  <div class="layout-user-downmenu">
+                    <ul class="layout-user-downmenu-list">
+                      <li class="layout-user-downmenu-item">
+                        <a href="#" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_register">个人中心</a>
+                      </li>
+                      <li class="layout-user-downmenu-item">
+                        <a href="#" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_myorder">我的订单</a>
+                      </li>
+                      <li class="layout-user-downmenu-item">
+                        <a href="{% url 'logout' %}" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_mformy">退出登录</a>
+                      </li>
+                    </ul>
+                  </div>
+                {% else %}
+                  <div class="layout-user-downmenu">
+                    <ul class="layout-user-downmenu-list">
+                      <li class="layout-user-downmenu-item">
+                        <a href="{% url 'login' %}" class="layout-user-downmenu-link">立即登录</a>
+                      </li>
+                      <li class="layout-user-downmenu-item">
+                        <a href="register.html" target="_blank" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_register">立即注册</a>
+                      </li>
+                    </ul>
+                  </div>
+                {% endif %}
             </li>
             <li class="layout-header-service-item layout-header-service-cart" id="layoutHeaderCart">
                 <a class="layout-header-service-link" href="#" data-mtype="wmz_public_yt_cart">

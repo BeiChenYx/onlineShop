@@ -33,6 +33,7 @@ def dologin(request):
     """
     执行登录
     """
+    print('执行登录...')
     code = request.POST['code']
     if request.session['verifycode'] != code:
         context = {'info': '验证码错误！'}
@@ -40,7 +41,7 @@ def dologin(request):
 
     try:
         #根据账号获取登录者信息
-        user = Member.objects.get(username=request.POST['username'])
+        user = Member.objects.get(nick_name=request.POST['username'])
         #判断当前用户是否是后台管理员用户
         if user.state == 0 or user.state == 1:
             # 验证密码

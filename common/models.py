@@ -33,8 +33,7 @@ class Member(models.Model):
             'id': self.id, 'username': self.user_name,
             'name': self.nick_name, 'password': self.password,
             'address': self.address, 'phone': self.phone,
-            'email': self.email, 'state': self.state,
-            'addtime': self.add_time, 'sex': self.sex
+            'email': self.email, 'state': self.state, 'sex': self.sex
         }
 
     def __str__(self):
@@ -74,7 +73,6 @@ class Goods(models.Model):
     clicknum = models.IntegerField(default=0)
     state = models.IntegerField(default=1)
     addtime = models.DateTimeField(default=datetime.now)
-
 
     def toDict(self):
         return {'id': self.id, 'typeid': self.typeid,

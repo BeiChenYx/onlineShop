@@ -349,7 +349,7 @@ function nLogin(){
      $('input[name=account]').blur(function(){
           //获取用户信息进行正则获取
           var v =$(this).val();
-          var reg=/^\d{6,18}$/;
+          var reg=/^\d{3,18}$/;
           //判断如果为true则通过
           if(reg.test(v)){
                 $('.cycode-box').removeClass('btn-error');
@@ -367,7 +367,7 @@ function nLogin(){
      $('input[name=password]').blur(function(){
           //获取用户信息
           var v =$(this).val();
-          var reg=/^\w{6,18}$/;
+          var reg=/^\w{3,18}$/;
           //判断如果为true则通过
           if(reg.test(v)){
                 $('.passwd-box').removeClass('btn-error');
