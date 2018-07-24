@@ -83,17 +83,9 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right layout-header-nav clearfix">
-            <li class="layout-header-nav-item">
-              <a href="./index.html" class="layout-header-nav-link">魅族商城 </a><p class="line-top hidden-xs"></p>
-            </li>
-            <li class="layout-header-nav-item">
-              <a href="./list.html" class="layout-header-nav-link">魅族手机</a>
-            </li>
-            <li class="layout-header-nav-item"><a href="./list.html" class="layout-header-nav-link">魅蓝手机</a></li>
-            <li class="layout-header-nav-item"><a href="./list.html" class="layout-header-nav-link">魅族声学</a></li>
-            <li class="layout-header-nav-item"><a href="#" class="layout-header-nav-link">智能·配件</a></li>
-            <li class="layout-header-nav-item"><a href="#" class="layout-header-nav-link">服务</a></li>
-            <li class="layout-header-nav-item"><a href="#" class="layout-header-nav-link">专卖店</a></li>
+            {% for category in categorys %}
+              <li class="layout-header-nav-item"><a href="#" class="layout-header-nav-link">{{ category.name }}</a></li>
+            {% endfor %}
             <li class="layout-header-nav-item"><a href="#" class="layout-header-nav-link">Flyme</a></li>
             <li class="layout-header-nav-item"><a href="#" class="layout-header-nav-link">社区</a></li>                          
           </ul>           
@@ -102,6 +94,7 @@
       </div>
      <!-- /.container-fluid -->
      <!-- 鼠标经过出现内容 -->
+     <!--
      <div class="layout-header-nav-child">
        <div class="container">
          <ul class="layout-header-nav-child-list first" >
@@ -174,6 +167,7 @@
          </ul>
        </div>
      </div>
+    -->
     </nav>
     <!-- 移动端结构 -->
     <div class="scroll-view">

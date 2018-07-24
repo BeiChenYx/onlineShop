@@ -1,27 +1,44 @@
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 
-from common.models import Member
+from common.models import Member, Category, Goods
 
 # Create your views here.
+def load_top_category(request):
+    """
+    加载一级类别
+    """
+    categorys = Category.objects.filter(pid=0)
+    return {'categorys': categorys}
+
 def index(request):
     """
     商城前台首页
     """
     # return HttpResponse("欢迎来到在线商城首页")
-    return render(request, 'web/index.html')
+    return render(request, 'web/index.html', load_top_category(request))
 
 def good_list(request, pindex=1):
     """
     商品列表
+    TODO: 后台做了分页处理，此处就不做分页处理，处理方式是一样的
+    商品展示就直接一行4个，一直排下去
     """
-    return render(request, 'web/list.html')
+    context = load_top_category(request)
+    goods = Goods.objects.all()
+    rows = len(goods) // 4 + (1 if len(goods) % 4 else 0)
+
+    context['rows'] = tuple(range(0, rows))
+    context['coles'] = (0, 1, 2, 3)
+    # 构造二维列表
+    context['goods'] = [goods[row*4: row*4+4] for row in range(0, rows)]
+    return render(request, 'web/list.html', context)
 
 def good_detail(request, gid):
     """
     商品详情页
     """
-    return render(request, 'web/detail.html')
+    return render(request, 'web/detail.html', load_top_category(request))
 
 def login(request):
     """
