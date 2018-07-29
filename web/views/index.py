@@ -21,8 +21,6 @@ def index(request):
 def good_list(request, pindex=1):
     """
     商品列表
-    TODO: 后台做了分页处理，此处就不做分页处理，处理方式是一样的
-    商品展示就直接一行4个，一直排下去
     """
     context = load_top_category(request)
     goodslist = Goods.objects
@@ -38,7 +36,13 @@ def good_detail(request, gid):
     """
     商品详情页
     """
-    return render(request, 'web/detail.html', load_top_category(request))
+    context = load_top_category(request)
+    ob = Goods.objects.get(id=gid)
+    ob.clicknum += 1
+    ob.save()
+    context['goods'] = ob
+    print('good.picname: ', ob.picname)
+    return render(request, 'web/detail.html', context)
 
 def login(request):
     """

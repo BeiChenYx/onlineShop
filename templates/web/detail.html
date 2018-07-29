@@ -24,7 +24,7 @@
           <!-- Tab panes -->
           <div class="tab-content preview-booth pt10">
             <div role="tabpanel" class="tab-pane active mod-pic" id="list-p1">
-              <img  src="{% static 'web/img/mlx15.jpg' %}" width="375" height="375"  class="sImg">
+              <img  src="/static/goods/{{ goods.picname }}" width="375" height="375"  class="sImg">
             </div>
             <div role="tabpanel" class="tab-pane mod-pic" id="list-p2">
               <img  src="{% static 'web/img/mlx2.jpg' %}" width="375" height="375" class="sImg">
@@ -58,8 +58,8 @@
       <div class="col-md-7 col-sm-12 col-xs-12 pt10">
         <div class="property hidden-xs hidden-sm" id="property">
              <div class="property-hd">
-                   <h1>魅蓝 X</h1>
-                   <p class="mod-info active">32G直降200元 原价1699元 高清屏安全快充 </p>
+                   <h1>{{ goods.goods }}</h1>
+                   <p class="mod-info active">{{ goods.content }}</p>
              </div>
              <div class="property-sell">
                  <dl class="property-sell-price clearfix">
@@ -68,7 +68,7 @@
                      <dd>
                          <div class="mod-price">
                              <small>¥</small>
-                             <span id="J_price" class="vm-money">1499.00</span>
+                             <span id="J_price" class="vm-money">{{ goods.price }}</span>
                          </div>
                          <div class="mod-original" id="J_originalPrice" style="display:none;"></div>
                          <div class="mod-activity">
