@@ -171,6 +171,28 @@
           </div>
       </div>
       <!-- 商品列表 -->
+
+      <!-- 分页显示 -->
+      <nav aria-label="Page navigation" class="text-center">
+        <ul class="pagination">
+          <li>
+            <a href="{% url 'good_list' pIndex|add:-1 %}?{{ mywhere|join:'&' }}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          {% for p in plist %}
+            <li {% if pIndex == p %}class="active"{% endif %}>
+              <a href="{% url 'good_list' p %}?{{ mywhere|join:'&' }}">{{p}}</a>
+            </li>
+          {% endfor %}
+          <li>
+            <a href="{% url 'good_list' pIndex|add:1 %}?{{ mywhere|join:'&' }}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- 分页显示E -->
     </div>
   </div>
   {% endblock mainbody %}

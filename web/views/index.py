@@ -1,5 +1,7 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse
+from django.core.paginator import Paginator
 
 from common.models import Member, Category, Goods
 
@@ -24,13 +26,37 @@ def good_list(request, pindex=1):
     """
     context = load_top_category(request)
     goodslist = Goods.objects
+
+    # 用于存放搜索条件的列表
+    mywhere = []
+
     cid = int(request.GET.get('tid', 0))
     if cid > 0:
         goods_data = goodslist.filter(typeid__in=Category.objects.only('id').filter(pid=cid))
+        mywhere.append('tid=' + str(cid))
     else:
         goods_data = goodslist.filter()
-    context['goods_list'] = goods_data
-    return render(request, 'web/list.html', context)
+
+    #执行分页处理
+    pIndex = int(pindex)
+    page = Paginator(goods_data,4) #以5条每页创建分页对象
+    maxpages = page.num_pages #最大页数
+    #判断页数是否越界
+    if pIndex > maxpages:
+        pIndex = maxpages
+    if pIndex < 1:
+        pIndex = 1
+    list2 = page.page(pIndex) #当前页数据
+    plist = page.page_range   #页码数列表
+    
+    context['goods_list'] = list2 
+    context['plist'] = plist
+    context['pIndex'] = pIndex
+    context['maxpages'] = maxpages
+    context['mywhere'] = mywhere
+    context['tid'] = int(cid)
+    return render(request, 'web/goodslist.html', context)
+    # return render(request, 'web/index.html', load_top_category(request))
 
 def good_detail(request, gid):
     """

@@ -83,6 +83,7 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right layout-header-nav clearfix">
+            <li class="layout-header-nav-item"><a href="{% url 'good_list' %}" class="layout-header-nav-link">全部商品</a></li>
             {% for category in categorys %}
               <li class="layout-header-nav-item"><a href="{% url 'good_list' %}?tid={{ category.id }}" 
                 class="layout-header-nav-link">{{ category.name }}</a></li>
