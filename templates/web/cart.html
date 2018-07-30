@@ -1,0 +1,139 @@
+{% extends "web/base.html" %} 
+{% load static from staticfiles %}
+{% block mylink %}
+<link rel="stylesheet" type="text/css" href="{% static 'web/css/cart.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'web/css/cart-app.css' %}"> 
+{% endblock %} 
+{% block mainbody %}
+<div class="mainbody cart" style="margin-top: 80px;">
+    <div class="container">
+        <!-- 购物车详情头 -->
+        <table class="cart-header">
+            <tbody>
+                <tr>
+                    <td class="cart-col-select col-md-3 col-xs-3 col-sm-3">
+                        <div class="cart-select-all JSelectAll">
+                            <div class="mz-checkbox"></div>
+                            <span class="cart-select-title">全选</span>
+                        </div>
+                    </td>
+                    <td class="cart-col-name col-md-3 hidden-xs hidden-sm">商品</td>
+                    <td class="cart-col-price col-md-2 hidden-xs hidden-sm">单价(元)</td>
+                    <td class="cart-col-number col-md-2 hidden-xs hidden-sm">数量</td>
+                    <td class="cart-col-total col-md-1 hidden-xs hidden-sm">小计(元)</td>
+                    <td class="cart-col-ctrl col-md-1 hidden-xs hidden-sm">操作</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- 购物车详情头 E-->
+
+        <!-- 购物清单信息列表 -->
+        <div class="cart-merchant-list">
+            <div class="cart-merchant">
+                <table class="cart-merchant-body">
+                    <tbody>
+                        {% for shop in request.session.shoplist.values %}
+                        <tr class="cart-product">
+                            <td class="cart-col-select col-md-3 col-xs-4 col-sm-4">
+                                <div class="mz-checkbox" gid="{{shop.id}}" price="{% widthratio shop.price 1 shop.m %}"></div>
+                                <a href="{% url 'good_detail' shop.id %}" class="cart-product-link" target="_blank">
+                                    <img src="/static/goods/s_{{ shop.picname }}" class="cart-product-img" alt="{{ shop.goods }}" width="50">
+                                </a>
+                            </td>
+                            <td class="cart-col-name col-md-3 col-xs-8 col-sm-8">
+                                <a href="{% url 'good_detail' shop.id %}" class="cart-product-link" target="_blank">
+                                    <p>{{ shop.goods }}</p>
+                                </a>
+                                <p class="">
+                                    <span class="cart-product-price">{{ shop.price }}</span>
+                                </p>
+                                <div class="cart-col-number">
+                                    <div class="cart-product-number-adder">
+                                        <p class="cart-product-number-max show"></p>
+                                        <div class="mz-adder">
+                                            <button class="mz-adder-subtract disabled"></button>
+                                            <div class="mz-adder-num">
+                                                <input class="mz-adder-input" value="1" type="text">
+                                            </div>
+                                            <button class="mz-adder-add"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="cart-col-price col-md-2 hidden-xs hidden-sm">
+                                <p>
+                                    <span class="cart-product-price">{{ shop.price}}</span>
+                                </p>
+                            </td>
+                            <td class="cart-col-number col-md-2 hidden-xs hidden-sm">
+                                <div class="cart-product-number-adder">
+                                    <p class="cart-product-number-max show"></p>
+                                    <div class="mz-adder">
+                                        <button onclick="window.location='{% url 'cart_change' %}?gid={{shop.id}}&num={{shop.m|add:-1}}'" class="mz-adder-subtract"></button>
+                                        <div class="mz-adder-num">
+                                            <input class="mz-adder-input" value="{{ shop.m }}" onblur="window.location='{% url 'cart_change' %}?gid={{shop.id}}&num='+this.value"
+                                                type="text">
+                                        </div>
+                                        <button onclick="window.location='{% url 'cart_change' %}?gid={{shop.id}}&num={{shop.m|add:1}}'" class="mz-adder-add"></button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="cart-col-total col-md-1 hidden-xs hidden-sm">
+                                <span class="cart-product-price total">{% widthratio shop.price 1 shop.m %}</span>
+
+                            </td>
+                            <td class="cart-col-ctrl col-md-1 hidden-xs hidden-sm">
+                                <a href="{% url 'cart_del' shop.id %}" title="删除">
+                                    <div class="cart-product-remove">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </div>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- 购物清单信息列表 E-->
+    </div>
+    <!-- 结算详情 -->
+    <div class="cart-footer" id="cartFooter">
+        <div class="container">
+            <div class="cart-footer-left col-md-6 col-xs-4 col-sm-4">
+                <div class="cart-select-all JSelectAll" data-mdesc="全选按钮" data-mtype="store_cart_all">
+                    <div class="mz-checkbox"></div>
+                    <span class="cart-select-title">全选</span>
+                </div>
+                <!-- <span class="cart-remove-selected" id="removeSelected">删除选中的商品</span> -->
+                <span class="cart-footer-count">
+                    共
+                    <span class="cart-footer-num" id="totalCount"></span>
+                    件商品
+                </span>
+                <div class="mz-btn btn-danger" onclick="window.location='{% url 'cart_clear' %}'" id="cartSubmit">清空购物车</div>
+            </div>
+            <div class="cart-footer-right col-md-5 col-md-offset-1 col-sm-offset-2 col-xs-8 col-sm-6">
+                <span class="cart-footer-sum">
+                    <span class="cart-footer-text">已优惠</span>
+                    <span class="cart-footer-num red" id="totalDiscount">0.00</span>
+                    <span class="cart-footer-text">元， 合计(不含运费)：</span>
+                    <span class="cart-footer-total" id="totalPrice">0.0</span>
+                </span>
+                <div onclick="window.location='/orders/add?ids='+loadTotal().join(',')" class="mz-btn btn-success" id="cartSubmit">去结算</div>
+            </div>
+        </div>
+    </div>
+    <!-- 结算详情 E-->
+</div>
+{% endblock %}
+{% block myjs %}
+    //全选
+    allSelect();
+    //登录图片鼠标经过 
+    // topLogin(); 
+    //商品数量加减 
+    //cartAddMin() 
+    //loadTotal(); 
+    var gidlist = []; 
+{% endblock %}

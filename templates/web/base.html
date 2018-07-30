@@ -76,9 +76,9 @@
                 {% endif %}
             </li>
             <li class="layout-header-service-item layout-header-service-cart" id="layoutHeaderCart">
-                <a class="layout-header-service-link" href="#" data-mtype="wmz_public_yt_cart">
+                <a class="layout-header-service-link" href="{% url 'cart_index' %}" data-mtype="wmz_public_yt_cart">
                     <i class="glyphicon glyphicon-shopping-cart"></i>
-                    <span class="layout-header-service-cart-num">0</span>
+                    <span class="layout-header-service-cart-num">{{ request.session.shoplist|length }}</span>
                 </a>
             </li>
           </ul>

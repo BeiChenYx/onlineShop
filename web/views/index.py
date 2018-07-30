@@ -56,7 +56,6 @@ def good_list(request, pindex=1):
     context['mywhere'] = mywhere
     context['tid'] = int(cid)
     return render(request, 'web/goodslist.html', context)
-    # return render(request, 'web/index.html', load_top_category(request))
 
 def good_detail(request, gid):
     """

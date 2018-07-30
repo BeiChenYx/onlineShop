@@ -180,21 +180,30 @@
           </div>
           <div class="property-buy">
             <p class="vm-message" id="J_message"></p>
-            <dl class="property-buy-quantity">
-                <dt class="vm-metatit">数<span class="s-space"></span><span class="s-space"></span>量：</dt>
-                <dd class="clearfix">
-                    <div class="mod-control">
-                       <a title="减少" href="javascript:;" class="vm-minus disabled">-</a>
-                       <input value="1" id="J_quantity" data-max="5" type="text">
-                       <a title="增加" href="javascript:;" class="vm-plus">+</a>
+            <form action="{% url 'cart_add' goods.id %}" method="post">
+                {% csrf_token %}
+                <div class="property-buy">
+                    <p class="vm-message" id="J_message"></p>
+                    <dl class="property-buy-quantity">
+                        <dt class="vm-metatit">数
+                            <span class="s-space"></span>
+                            <span class="s-space"></span>量：</dt>
+                        <dd class="clearfix">
+                            <div class="mod-control">
+                                <a title="减少" href="javascript:;" class="vm-minus disabled">-</a>
+                                <input value="1" name="m" id="J_quantity" data-max="5" type="text">
+                                <a title="增加" href="javascript:;" class="vm-plus">+</a>
+                            </div>
+                        </dd>
+                    </dl>
+                    <div class="property-buy-action">
+                        <button data-mtype="store_de_buy" type="submit" id="J_btnBuy" class="btn btn-danger btn-lg mr20">立即购买</button>
+                        <a data-mtype="store_de_cart" href="javascript:void(0);" id="J_btnAddCart" class="btn btn-primary btn-lg hide" style="display:inline-block;">
+                            <i></i>加入购物车</a>
+                        <span class="vm-service" id="J_panicBuyingWrap"></span>
                     </div>
-                </dd>
-            </dl>
-            <div class="property-buy-action">
-                <a data-mtype="store_de_buy" href="javascript:void(0);" id="J_btnBuy" class="btn btn-danger btn-lg mr20">立即购买</a>
-                <a data-mtype="store_de_cart" href="javascript:void(0);" id="J_btnAddCart" class="btn btn-primary btn-lg hide" style="display:inline-block;"><i></i>加入购物车</a>
-                <span class="vm-service" id="J_panicBuyingWrap"></span>
-            </div>
+                </div>
+            </form>
           </div>
           <div class="prod-addition">
                 <input id="servertime" value="1503304001935" type="hidden">
