@@ -1,9 +1,9 @@
 {% extends "web/base.html" %} 
-{% load static from staticfiles %}
+{% load static from staticfiles %} 
 {% block mylink %}
 <link rel="stylesheet" type="text/css" href="{% static 'web/css/cart.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'web/css/cart-app.css' %}"> 
-{% endblock %} 
+{% endblock %}
 {% block mainbody %}
 <div class="mainbody cart" style="margin-top: 80px;">
     <div class="container">
@@ -35,7 +35,7 @@
                         {% for shop in request.session.shoplist.values %}
                         <tr class="cart-product">
                             <td class="cart-col-select col-md-3 col-xs-4 col-sm-4">
-                                <div class="mz-checkbox" gid="{{shop.id}}" price="{% widthratio shop.price 1 shop.m %}"></div>
+                                <div class="mz-checkbox" gid="{{shop.id}}" price="{% widthratio  shop.price 1 shop.m %}"></div>
                                 <a href="{% url 'good_detail' shop.id %}" class="cart-product-link" target="_blank">
                                     <img src="/static/goods/s_{{ shop.picname }}" class="cart-product-img" alt="{{ shop.goods }}" width="50">
                                 </a>
@@ -121,17 +121,17 @@
                     <span class="cart-footer-total" id="totalPrice">0.0</span>
                 </span>
                 <div onclick="window.location='/orders/add?ids='+loadTotal().join(',')" class="mz-btn btn-success" id="cartSubmit">去结算</div>
+                </div>
             </div>
         </div>
-    </div>
     <!-- 结算详情 E-->
 </div>
-{% endblock %}
-{% block myjs %}
-    //全选
-    allSelect();
+{% endblock %} 
+{% block main_js %} 
+    //全选 
+    allSelect(); 
     //登录图片鼠标经过 
-    // topLogin(); 
+    //topLogin(); 
     //商品数量加减 
     //cartAddMin() 
     //loadTotal(); 

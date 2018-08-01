@@ -1,0 +1,139 @@
+{% extends "web/base.html" %}
+{% load static from staticfiles %}
+
+{% block mylink %}
+  <link rel="stylesheet" type="text/css" href="{% static 'web/css/cart.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'web/css/cart-app.css' %}">
+{% endblock %}
+
+{% block mainbody %}
+<form action="{% url 'orders_insert' %}" method="post">
+{% csrf_token %}
+<div class="mainbody cart" style="margin-top: 80px;padding-bottom:5px;">
+    <div class="container">
+      <!-- 订单步骤2/3 -->
+      <table class="cart-header">
+        <tbody>
+          <tr>
+            <td class="cart-col-select col-md-12">
+                当前位置： 订单处理 > 2/3 确认订单信息：
+            </td>
+          </tr>
+        </tbody>
+      </table><!-- 订单步骤2/3 E-->
+      
+      <!-- 订单物流确认信息 -->
+      <div class="cart-merchant-list">
+        <div class="cart-merchant">
+          <table class="cart-merchant-body">
+            <tbody>
+              <tr class="cart-product" style="height:60px;border:none;">
+                <td class="cart-col-select col-md-2 col-xs-3 col-sm-3" style="text-align: right;">
+                  联系人：
+                </td>
+                <td class="cart-col-name col-md-3 col-xs-4 col-sm-4">
+                  <input readonly type="text" name="linkman"  value="{{ request.POST.linkman}}" size="40"/>
+                </td>
+              </tr>
+              <tr class="cart-product" style="height:60px;border:none;">
+                <td class="cart-col-select col-md-2 col-xs-3 col-sm-3" style="text-align: right;">
+                  收货地址：
+                </td>
+                <td class="cart-col-name col-md-3 col-xs-4 col-sm-4">
+                  <input readonly type="text" name="address"  value="{{ request.POST.address}}" size="40"/>
+                </td>
+              </tr>
+              <tr class="cart-product" style="height:60px;border:none;">
+                <td class="cart-col-select col-md-2 col-xs-3 col-sm-3" style="text-align: right;">
+                  联系电话：
+                </td>
+                <td class="cart-col-name col-md-3 col-xs-4 col-sm-4">
+                  <input readonly type="text" name="phone" value="{{ request.POST.phone}}" size="40"/>
+                </td>
+              </tr>
+              <tr class="cart-product" style="height:60px;border:none;">
+                <td class="cart-col-select col-md-2 col-xs-3 col-sm-3" style="text-align: right;">
+                  邮编：
+                </td>
+                <td class="cart-col-name col-md-3 col-xs-4 col-sm-4">
+                  <input readonly type="text" name="code"  value="{{ request.POST.code}}" size="40"/>
+                </td>
+              </tr>
+              <tr class="cart-product" style="height:60px;border:none;">
+                <td class="cart-col-select col-md-2 col-xs-3 col-sm-3" style="text-align: right;">
+                  总金额：
+                </td>
+                <td class="cart-col-name col-md-3 col-xs-4 col-sm-4">
+                  <input type="text" disabled value="{{ request.session.total }} 元"  name="linkman" size="40"/>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div><!-- 订单物流确认信息 E-->
+    </div>
+    <!-- 操作按钮 -->
+    <div class="cart-footer" id="cartFooter">
+      <div class="container">
+        <div class="cart-footer-right col-md-12" style="text-align:center">
+          <div onclick="window.history.go(-1)" class="mz-btn btn-success" id="cartSubmit">返回修改</div>
+          <button type="submit" class="mz-btn btn-success" id="cartSubmit">确认下单</button>
+        </div>
+      </div>
+    </div><!-- 操作按钮 E-->
+</div></form>
+
+<div class="mainbody cart" style="padding-bottom:15px;">
+    <div class="container">
+      <!-- 订单详情头 -->
+      <table class="cart-header">
+        <tbody>
+          <tr>
+            <td class="cart-col-name col-md-3 hidden-xs hidden-sm">商品</td>
+            <td class="cart-col-name col-md-3 hidden-xs hidden-sm">图片</td>
+            <td class="cart-col-price col-md-2 hidden-xs hidden-sm">单价(元)</td>
+            <td class="cart-col-number col-md-2 hidden-xs hidden-sm">数量</td>
+            <td class="cart-col-total col-md-1 hidden-xs hidden-sm">小计(元)</td>
+          </tr>
+        </tbody>
+      </table><!-- 订单详情头 E-->
+      
+      <!-- 订单清单信息列表 -->
+      <div class="cart-merchant-list">
+        <div class="cart-merchant">
+          <table class="cart-merchant-body">
+            <tbody>
+            {% for shop in request.session.orderslist.values %}
+              <tr class="cart-product" style="height:100px;">
+                <td class="cart-col-name col-md-3 hidden-xs hidden-sm">
+                   <p>
+                      <div class="mz-adder-num">{{ shop.goods }}</div>
+                  </p>
+                </td>
+                <td class="cart-col-name col-md-3 hidden-xs hidden-sm">
+                   <p>
+                      <div class="mz-adder-num"><img src="/static/goods/s_{{ shop.picname }}" alt="{{ shop.goods }}" width="50"></div>
+                  </p>
+                </td>
+                <td class="cart-col-price col-md-2 hidden-xs hidden-sm">
+                  <p>
+                    <span class="cart-product-price">{{ shop.price}}</span>
+                  </p>
+                </td>
+                <td class="cart-col-number col-md-2 hidden-xs hidden-sm">
+                   <p>
+                      <div class="mz-adder-num">{{ shop.m }}</div>
+                  </p>
+                </td>
+                <td class="cart-col-total col-md-1 hidden-xs hidden-sm">
+                  <span class="cart-product-price total">{% widthratio  shop.price 1 shop.m %}</span>
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div><!-- 订单清单信息列表 E-->
+    </div>
+</div>
+{% endblock %}

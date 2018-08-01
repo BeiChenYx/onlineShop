@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from .views import index, cart
+from .views import index, cart, orders
 
 urlpatterns = [
     url(r'^$', index.index, name='index'),
@@ -33,4 +33,9 @@ urlpatterns = [
     url(r'^cart/del/(?P<gid>[0-9]+)$', cart.delete, name='cart_del'), #从购物车中删除一个商品
     url(r'^cart/clear$', cart.clear, name='cart_clear'), #清空购物车
     url(r'^cart/change$', cart.change, name='cart_change'), #更改购物车中商品数量
+
+    # 订单处理
+    url(r'^orders/add$', orders.add, name='orders_add'), #订单的表单页
+    url(r'^orders/confirm$', orders.confirm, name='orders_confirm'), #订单确认页
+    url(r'^orders/insert$', orders.insert, name='orders_insert'), #执行订单添加操作
 ]

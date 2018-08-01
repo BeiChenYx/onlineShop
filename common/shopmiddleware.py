@@ -27,6 +27,11 @@ class ShopMiddleware(object):
             if "adminuser" not in request.session:
                 # 执行登录界面跳转
                 return redirect(reverse('myadmin_login'))
+
+        if re.match("^/orders", path) or re.match('^/vip', path):
+            if 'vipuser' not in request.session:
+                return redirect(reverse('login'))
+
         response = self.get_response(request)
 
         # Code to be executed for each request/response after

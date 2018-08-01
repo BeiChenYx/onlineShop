@@ -1,0 +1,40 @@
+{% extends "web/base.html" %}
+{% load static from staticfiles %}
+
+{% block mylink %}
+  <link rel="stylesheet" type="text/css" href="{% static 'web/css/cart.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'web/css/cart-app.css' %}">
+{% endblock %}
+
+{% block mainbody %}
+<div class="mainbody cart" style="margin-top: 80px;">
+    <div class="container">
+      <!-- 订单步骤3/3 -->
+      <table class="cart-header">
+        <tbody>
+          <tr>
+            <td class="cart-col-select col-md-12">
+                当前位置： 订单处理 > 3/3 订单完成：
+            </td>
+          </tr>
+        </tbody>
+      </table><!-- 订单步骤3/3 E-->
+      
+      <!-- 订单提示信息 -->
+      <div class="cart-merchant-list">
+        <div class="cart-merchant text-center" style="font-size:30px;color:#fc0;line-height:100px;">
+              {{ info }}
+        </div>
+      </div><!-- 订单提示信息 E-->
+    </div>
+    <!-- 按钮 -->
+    <div class="cart-footer" id="cartFooter">
+      <div class="container">
+        <div class="cart-footer-right col-md-12" style="text-align:center">
+          <div onclick="window.history.go(-1)" class="mz-btn btn-success" id="cartSubmit">返回</div>
+          <a href="{% url 'index' %}" class="mz-btn btn-success">首页</a>
+        </div>
+      </div>
+    </div><!-- 按钮 E-->
+</div>
+{% endblock %}
