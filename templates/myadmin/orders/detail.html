@@ -1,0 +1,80 @@
+{% extends "myadmin/base.html" %}
+
+{% block mainbody %}                
+    <h4>
+        订单信息:
+    </h4>
+    <table class="table table-bordered">
+        <tr>
+            <th width="12%" style="text-align:right;background-color:#eee;">订单号：</th>
+            <td width="25%">201700{{ orders.id }}</td>
+            <th width="12%" style="text-align:right;background-color:#eee;">下单人：</th>
+            <td width="51%">{{ orders.name }}</td>
+        </tr>
+        <tr>
+            <th style="text-align:right;background-color:#eee;">收货人：</th>
+            <td>{{ orders.linkman }}</td>
+            <th style="text-align:right;background-color:#eee;">订单地址：</th>
+            <td>{{ orders.address }}</td>
+        </tr>
+        <tr>
+            <th style="text-align:right;background-color:#eee;">邮政编码：</th>
+            <td>{{ orders.code }}</td>
+            <th style="text-align:right;background-color:#eee;">下单时间：</th>
+            <td>{{ orders.addtime }}</td>
+        </tr>
+        <tr>
+            <th style="text-align:right;background-color:#eee;">总计金额：</th>
+            <td>{{ orders.total }}</td>
+            <th style="text-align:right;background-color:#eee;">订单状态：</th>
+            <td>
+                {% if orders.state == 0 %}
+                    新订单 &nbsp; &nbsp;【<a href="{% url 'myadmin_orders_state' %}?oid={{orders.id}}&state=1">确认发货</a>】 &nbsp; 
+                    【<a href="{% url 'myadmin_orders_state' %}?oid={{orders.id}}&state=3">订单作废</a>】
+                {% elif orders.state == 1 %}
+                    已发货
+                {% elif orders.state == 2 %}
+                    已完成
+                {% elif orders.state == 3 %}
+                    无效订单
+                {% else %}
+                    未知
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    <br/>               
+    <h4>
+        订单详情信息:
+    </h4>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>id号</th>
+                <th>图片</th>
+                <th>商品名称</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>小计</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vo in detaillist %}
+            <tr>
+                <td>{{ vo.id }}</td>
+                <td><img src="/static/goods/s_{{ vo.picname }}" width="35" /></td>
+                <td>{{ vo.name }}</td>
+                <td>{{ vo.price }}</td>
+                <td>{{ vo.num }}</td>
+                <td>{{ vo.price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="text-align:center">
+        <button onclick="window.history.back()">返回</button>
+
+        <button >打印订单</button>
+    </div>            
+{% endblock %}

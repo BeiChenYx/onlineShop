@@ -1,0 +1,78 @@
+{% extends "myadmin/base.html" %}
+
+{% block mainbody %}                
+    <h4>
+        订单信息管理
+    </h4>
+    <form class="form-inline" action="{% url 'myadmin_orders_index'%}" method="get">
+      <label>关键字：</label>
+      <input type="text" name="keyword" value="{{request.GET.keyword}}" class="input-small" placeholder="收货人或地址"/>
+      <label> &nbsp; 状态：</label>
+      <select name="state" class="span1" style="width:100px;">
+          <option value="">全部</option>
+          <option value="0" {% if request.GET.state == '0' %}selected{% endif %}>新订单</option>
+          <option value="1" {% if request.GET.state == '1' %}selected{% endif %}>已发货</option>
+          <option value="2" {% if request.GET.state == '2' %}selected{% endif %}>已完成</option>
+          <option value="3" {% if request.GET.state == '3' %}selected{% endif %}>已作废</option>
+      </select>
+      <button type="submit" class="btn">搜索</button>
+      <a href="{% url 'myadmin_orders_index' 1 %}" class="btn">全部</a>
+    </form>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>订单号</th>
+                <th>下单人</th>
+                <th>收货人</th>
+                <th>收货地址</th>
+                <th>联系电话</th>
+                <th>时间</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vo in orderslist %}
+            <tr>
+                <td>{{ vo.id }}</td>
+                <td>{{ vo.name }}</td>
+                <td>{{ vo.linkman }}</td>
+                <td>{{ vo.address }}</td>
+                <td>{{ vo.phone }}</td>
+                <td>{{ vo.addtime|date:'Y-m-d H:i:s' }}</td>
+                <td>
+                    {% if vo.state == 0 %}
+                        新订单
+                    {% elif vo.state == 1 %}
+                        已发货
+                    {% elif vo.state == 2 %}
+                        已完成
+                    {% elif vo.state == 3 %}
+                        无效订单
+                    {% else %}
+                        未知
+                    {% endif %}</td>
+                <td>
+                    <a href="{% url 'myadmin_orders_detail' vo.id %}" class="view-link">查看详情</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>                
+    <div class="pagination">
+        <ul>
+            <li>
+                <a href="{% url 'myadmin_orders_index' pIndex|add:-1 %}?{{ mywhere|join:'&' }}">&laquo;</a>
+            </li>
+            {% for p in plist %}
+            <li {% if pIndex == p %}class="active"{% endif %}>
+                <a href="{% url 'myadmin_orders_index' p %}?{{ mywhere|join:'&' }}">{{p}}</a>
+            </li>
+            {% endfor %}
+            <li>
+                <a href="{% url 'myadmin_orders_index' pIndex|add:1 %}?{{ mywhere|join:'&' }}">&raquo;</a>
+            </li>
+
+        </ul>
+    </div>
+{% endblock %}

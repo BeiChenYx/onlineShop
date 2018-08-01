@@ -78,6 +78,15 @@
 							<li>
 								<a href="{% url 'myadmin_goods_add' %}"><i class="icon-user"></i> 添加商品信息</a>
 							</li>
+                            <li class="nav-header">
+								订单信息管理
+							</li>
+							<li>
+								<a href="{% url 'myadmin_orders_index' %}"><i class="icon-user"></i> 浏览所有订单</a>
+							</li>
+							<li>
+								<a href="{% url 'myadmin_orders_index' %}?state=0"><i class="icon-user"></i> 未处理订单</a>
+							</li>
 							<li class="divider">
 							</li>
 							<li>
