@@ -1,0 +1,147 @@
+{% extends "web/base.html" %}
+{% load static from staticfiles %}
+
+{% block mylink %}
+  <link rel="stylesheet" type="text/css" href="{% static 'web/css/order.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'web/css/order-app.css' %}">
+{% endblock %}
+
+{% block mainbody %}
+<div class="mainbody order">
+  <div class="container">
+	<!-- 面包屑导航 -->
+	<div class="crumbs col-xs-12 col-sm-12">
+	  <ol class="breadcrumb">
+		<li class="hidden-xs hidden-sm"><a href="index.html">首页</a></li>
+		<li class="hidden-xs hidden-sm"><a href="member.html">我的商城</a></li>
+		<li class="active">我的订单</li>
+	  </ol>
+	</div><!-- 面包屑导航 E-->
+		
+	<div class="main clearfix">
+		<!-- 左侧导航 -->
+		<div class="left-nav f-fl col-md-4 hidden-xs hidden-sm">
+			<div class="nav-main">
+				<a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>订单中心</a>
+				<a href="order.html" class="ml active" >我的订单</a>
+				<a href="#" class="ml " >我的回购单</a>
+				<a href="#" class="ml " >我的意外保</a>
+				<a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>个人中心</a>
+				<a href="/#" class="ml " >地址管理</a>
+				<a href="#" class="ml " >我的收藏</a>
+				<a href="#" class="ml " >消息提醒</a>
+				<a href="#" class="ml " >建议反馈</a>
+			</div>
+		</div><!-- 左侧导航 E-->
+			
+		<!-- 右侧内容展示 -->
+		<div class="right-content f-fr col-md-8 col-xs-12 col-sm-12">
+			<div class="order-main">
+				<div class="type-tab-btn">
+					<a href="javascript:;" class="allOrder active col-20" data-type="-1">全部订单</a><i class="line hidden-xs hidden-sm">|</i>
+					<a class="waitPay col-20" href="javascript:;" data-type="0">待付款<span class="amount _actAmount"></span></a><i class="line hidden-xs hidden-sm">|</i>
+					<a class="waitDeliver col-20" href="javascript:;" data-type="1">待发货</a><i class="line hidden-xs hidden-sm">|</i>
+					<a class="hasDeliver col-20" href="javascript:;" data-type="2">已发货</a><i class="line hidden-xs hidden-sm">|</i>
+					<a class="other col-20" href="javascript:;" data-type="99">其他</a>
+				</div>
+				<div class="list-head hidden-xs hidden-sm">
+                  <ul class="clearfix">
+                    <li class="w50">
+                        <select id="checkType" class="check-type">
+                            <option value="0">近三个月的订单</option>
+                            <option value="1">全部订单</option>
+                        </select>
+                        订单明细
+                    </li>
+                    <li class="w125">售后</li>
+                    <li class="w125">金额</li>
+                    <li class="w125">状态</li>
+                    <li class="w125">操作</li>
+                  </ul>
+				</div>
+				<div id="tableList" class="type-contain ui-load-container">
+					
+					<!-- 每个订单信息 -->
+					{% for orders in orderslist %}
+					<div class="ui-load-content" style="margin-top: 20px">
+					  <table class="orderItem">
+						<tbody>
+							<tr class="trHead hidden-xs hidden-sm">
+								<td colspan="4" class="title clearfix">
+								  <div class="f-fl">
+								  	订单号：<span class="time">{{ orders.id }}</span>
+								  	收货人：<span class="orderNumber">{{ orders.linkman }}</span>
+								  	收货地址：<span class="orderNumber">{{ orders.address }}</span>
+								  	联系电话：<span class="orderNumber">{{ orders.phone }}</span>
+								  </div>
+								</td>
+							</tr>
+							<tr class="list-box b-l b-r b-b">
+								<td class="list b-r j-iamCart">
+									<div class="cart-wrap j-CartWrap">
+										<div class="shop j-shop j-amLight">
+											{% for detail in orders.detaillist %}
+											<div class="item b-t clearfix j-item j-iamMain" style="height:110px;">
+												<a class="productDetail nameWidth col-xs-4 col-sm-4" href="{% url 'good_detail' detail.goodsid %}" target="_blank">
+													<img src="/static/goods/s_{{detail.picname}}" style="width:75px;height:75px" class="f-fl"/>
+												</a>
+												<div class="describe f-fl col-xs-8 col-sm-8">
+													<div class="vertic clearfix">
+														<span class="clearfix">
+															<a class="productDetail nameWidth" href="#" target="_blank">
+															<i>{{ detail.name }}</i></a>
+															<p>
+															￥{{ detail.price}}×{{ detail.num}}
+															</p>
+														</span>
+													</div>
+												</div>
+											</div>
+											{% endfor %}
+										</div>
+									</div>
+								</td>
+								<td class="b-r w125 center price b-t hidden-xs hidden-sm">
+									<div class="priceDiv">
+										￥ {{ orders.total }}  元
+									</div>
+								</td>
+								<td class="b-r w125 center state b-t hidden-xs hidden-sm">
+									<div class="stateDiv">
+										   <div>
+										   	{% if orders.state == 0 %}
+							                    新订单 <br/><br/><br/>
+							                    【<a href="{% url 'vip_odstate' %}?oid={{orders.id}}&state=3">撤销订单</a>】
+							                {% elif orders.state == 1 %}
+							                    已发货 <br/><br/>
+							                    【<a href="{% url 'vip_odstate' %}?oid={{orders.id}}&state=2">确认收货</a>】
+							                {% elif orders.state == 2 %}
+							                    已完成
+							                {% elif orders.state == 3 %}
+							                    无效订单
+							                {% else %}
+							                    未知
+							                {% endif %}
+										   </div>
+									</div>
+								</td>
+								<td class="w125 center opreat b-t hidden-xs hidden-sm">
+									<ul>
+										<li class="more"><a href="#" target="_blank">查看详情</a></li>
+									</ul>
+								</td>
+							</tr>
+						</tbody>
+				      </table>
+					</div>
+					{% endfor %}
+					<!-- 每个订单信息 end-->
+				
+				</div>
+			</div>
+		</div>
+	</div>
+  </div>	
+</div>
+<!-- 主内容区域 E-->
+{% endblock %}

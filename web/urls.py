@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from .views import index, cart, orders
+from .views import index, cart, orders, vip
 
 urlpatterns = [
     url(r'^$', index.index, name='index'),
@@ -38,4 +38,12 @@ urlpatterns = [
     url(r'^orders/add$', orders.add, name='orders_add'), #订单的表单页
     url(r'^orders/confirm$', orders.confirm, name='orders_confirm'), #订单确认页
     url(r'^orders/insert$', orders.insert, name='orders_insert'), #执行订单添加操作
+
+    # 会员中心
+    url(r'^vip/orders$', vip.viporders, name='vip_orders'), #会员中心我的订单
+    url(r'^vip/odstate$', vip.odstate, name='vip_odstate'), #修改订单状态（确认收货）
+    #url(r'^vip/info$', vip.info, name='vip_info'), #会员中心的个人信息
+    #url(r'^vip/update$', vip.update, name='vip_update'), #执行修改会员信息
+    #url(r'^vip/resetps$', vip.resetps, name='vip_resetps'), #重置密码表单
+    #url(r'^vip/doresetps$', vip.doresetps, name='vip_doresetps'), #执行重置密码
 ]
