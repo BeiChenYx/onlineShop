@@ -62,8 +62,8 @@ MIDDLEWARE = [
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        # 'LOCATION': os.path.join(BASE_DIR, 'cache\\'),
-        'LOCATION': 'D:/WorkSpace/OpenSource/onlineShop/cache',
+        'LOCATION': os.path.join(BASE_DIR, 'cache\\'),
+        # 'LOCATION': 'D:/WorkSpace/OpenSource/onlineShop/cache',
         'TIMEOUT': 600,
         'OPTIONS':{
             'MAX_ENTRIES': 1000,
