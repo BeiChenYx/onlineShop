@@ -15,15 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url
 from .views import index, cart, orders, vip
+from django.views.decorators.cache import (cache_page, 
+                                           cache_control,
+                                           never_cache)
 
 urlpatterns = [
-    url(r'^$', index.index, name='index'),
-    url(r'^list$', index.good_list, name='good_list'),
+    url(r'^$', cache_page(60 * 10)(index.index), name='index'),
+    url(r'^list$', cache_page(60 * 10)(index.good_list), name='good_list'),
     url(r'^list/(?P<pindex>[0-9]+)$', index.good_list, name='good_list'),
     url(r'^detail/(?P<gid>[0-9]+)$', index.good_detail, name='good_detail'),
 
     # 会员登录路由管理
-    url(r'^login$', index.login, name='login'),
+    url(r'^login$', cache_page(60 * 10)(index.login), name='login'),
     url(r'^dologin$', index.dologin, name='dologin'),
     url(r'^logout$', index.logout, name='logout'),
 

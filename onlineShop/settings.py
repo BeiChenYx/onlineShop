@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware', # 添加缓存
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,7 +54,24 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 注册中间件
     'common.shopmiddleware.ShopMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware', # 添加缓存E
 ]
+
+
+# 使用配置文件缓存
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        # 'LOCATION': os.path.join(BASE_DIR, 'cache\\'),
+        'LOCATION': 'D:/WorkSpace/OpenSource/onlineShop/cache',
+        'TIMEOUT': 600,
+        'OPTIONS':{
+            'MAX_ENTRIES': 1000,
+        }
+    }
+}
+
+
 
 ROOT_URLCONF = 'onlineShop.urls'
 
