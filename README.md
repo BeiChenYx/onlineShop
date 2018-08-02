@@ -2,15 +2,18 @@
 
 本项目基于Django框架仿制魅族商城，如有不当，请告知;
 
-## 效果预览
+## 使用的技能
 
-### 后台登录
-
-![login](doc/login.png)
-
-### 后台会员信息浏览
-
-![vip_view](doc/vip_view.png)
+1. Django安装,Django路由，模型，模板，视图，静态文件;
+2. 图片上传，图片缩放;
+3. Paginator分页，搜索操作；
+4. 富文本；
+5. Ajax异步加载；
+6. session的使用及管理；
+7. Django中间件的使用；
+8. 验证码图片的生成;
+9. 缓存优化;
+10. 使用中间件反常规爬虫, 普通过滤user-agent和时间段内封IP;
 
 ## 项目结构
 
@@ -35,3 +38,39 @@
 4. 商品信息管理：添加、删除、修改、查看.
 5. 订单信息管理：查看订单、订单详情、处理订单.
 6. 其他扩展：商品评论管理、商品多图管理；会员收货地址管理，商品收藏；首页轮播图管理；站内公告、新闻管理；友情链接管理.
+
+## 效果预览
+
+### 后台登录
+
+![login](doc/login.png)
+
+### 用户浏览搜索分页
+
+![vip_user](doc/vip_user.png)
+![vip_user_search](doc/vip_user_search.png)
+
+### 前台商品列表页
+
+![goods_list](doc/goods_list.png)
+
+### 商品详情页
+
+![goods_detail](doc/goods_detail.png)
+
+### 购物车
+
+![cart](doc/cart.png)
+
+### 个人中心订单
+
+![order](doc/vip_order.png)
+
+### TODO
+
+1. 网站首页；
+2. 会员中心多地址管理；
+3. 商品收藏；
+4. 站内公告；
+5. 新闻；
+6. 友情链接；

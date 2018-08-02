@@ -109,3 +109,14 @@ class Detail(models.Model):
 
     class Meta:
         db_table = "detail"  # 更改表名
+
+class RobotKiller(models.Model):
+    """
+    过滤爬虫，请求次数过多则封IP
+    """
+    id = models.IntegerField(primary_key=True)
+    ip = models.CharField(max_length=16)    #IP地址
+    visits = models.IntegerField()          #请求次数
+    time = models.DateTimeField()           #第一次发起请求的时间
+    class Meta:
+        db_table = 'robotkiller'
